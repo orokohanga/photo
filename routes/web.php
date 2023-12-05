@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/albums',[Controller::class, "albums"]);
+Route::get('/albums/{id}',[Controller::class, "albumsdetail"]);
+Route::get('/explorer',[Controller::class, "explorer"]);
