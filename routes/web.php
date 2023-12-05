@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/albums,')
+Route::get('/albums',[Controller::class, "albums"]);
+Route::get('/albums/{id}',[Controller::class, "albumsdetail"]);
+Route::get('/explorer',[Controller::class, "explorer"]);
+Route::get('/explorer/tags/{id}',[Controller::class, "explorertags"]);
