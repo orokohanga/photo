@@ -17,7 +17,6 @@ class Controller extends BaseController
     }
 
     function albumsdetail($id) {
-    // Récupérer toutes les photos de l'album avec les tags associés
     $photos = DB::select("SELECT photos.*, GROUP_CONCAT(tags.nom) 
         AS tags
         FROM photos
@@ -30,8 +29,23 @@ class Controller extends BaseController
     }
 
     function explorer(){
-        $photos = DB::select("SELECT * FROM photos");
+        $photos = DB::select("SELECT photos.*, GROUP_CONCAT(tags.nom) AS tags
+        FROM photos
+        JOIN possede_tag ON photos.id = possede_tag.photo_id
+        JOIN tags ON possede_tag.tag_id = tags.id
+        GROUP BY photos.id
+        ");
         return view("explorer", ["photos" => $photos]);
     }
 
+    function explorertags($id){
+        $photos = DB::select("SELECT photos.*,  GROUP_CONCAT(tags.nom) AS tags
+        FROM photos
+        JOIN possede_tag ON photos.id = possede_tag.photo_id
+        JOIN tags ON possede_tag.tag_id = tags.id
+        WHERE tags.id = ?
+        GROUP BY photos.id
+    ", [$id]);
+        return view("explorer", ["photos" => $photos]);
+    }
 }

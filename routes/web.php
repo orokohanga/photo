@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('/albums',[Controller::class, "albums"]);
 Route::get('/albums/{id}',[Controller::class, "albumsdetail"]);
 Route::get('/explorer',[Controller::class, "explorer"]);
+Route::get('/explorer/tags/{id}',[Controller::class, "explorertags"]);
