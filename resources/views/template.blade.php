@@ -19,8 +19,8 @@
             @csrf
         </form>
     @else
-        <a href="#">Login</a>
-        <a href="#">Register</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
     @endauth
     </nav>
     

@@ -17,8 +17,7 @@ class Controller extends BaseController
     }
 
     function albumsdetail($id) {
-    $photos = DB::select("SELECT photos.*, GROUP_CONCAT(tags.nom) 
-        AS tags
+    $photos = DB::select("SELECT photos.*
         FROM photos
         JOIN possede_tag ON photos.id = possede_tag.photo_id
         JOIN tags ON possede_tag.tag_id = tags.id
@@ -47,5 +46,25 @@ class Controller extends BaseController
         GROUP BY photos.id
     ", [$id]);
         return view("explorer", ["photos" => $photos]);
+    }
+
+    function registerform()
+    {
+        return view('register');
+    }
+
+    function register(Request $request)
+    {
+        return redirect()->route('albums');
+    }
+
+    function loginform()
+    {
+        return view('login');
+    }
+
+    function login(Request $request)
+    {
+        return redirect()->route('albums');
     }
 }

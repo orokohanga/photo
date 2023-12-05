@@ -6,7 +6,6 @@
         <div class="photo">*
             <img src="{{ $photo->url }}" alt="Photo">
             <p>{{$photo->titre}}</p>
-            <p>{{$photo->tags}}
         <div>
     @endforeach
 @endsection
