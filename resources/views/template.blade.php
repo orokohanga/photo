@@ -12,7 +12,6 @@
         <a href="/explorer">explorer</a>
 		@auth
         Bonjour {{Auth::user()->name}}
-        <a href="/albumscreate/">ajout film</a>
         <a href="#"
            onclick="document.getElementById('#').submit(); return false;">Logout</a>
         <form id="logout" action="#" method="post">

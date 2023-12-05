@@ -10,8 +10,5 @@
     <label for="password">Mot de passe:</label>
     <input type="password" name="password" required>
 
-    <label for="password_confirmation">Confirmer le mot de passe:</label>
-    <input type="password" name="password_confirmation" required>
-
     <button type="submit">Inscription</button>
 </form>

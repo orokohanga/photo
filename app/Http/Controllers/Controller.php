@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -53,9 +54,14 @@ class Controller extends BaseController
         return view('register');
     }
 
-    function register(Request $request)
+    function register()
     {
-        return redirect()->route('albums');
+        $newUser= new \App\Models\User;
+        $newUser -> name = request('name');
+        $newUser -> email = request('email');
+        $newUser -> password = request('password');
+        $newUser -> save();
+        return redirect("/");
     }
 
     function loginform()
@@ -63,8 +69,17 @@ class Controller extends BaseController
         return view('login');
     }
 
-    function login(Request $request)
-    {
-        return redirect()->route('albums');
+    function login() {
+
+        $email = request('email');
+        $password = request('password');
+
+
+        $user = DB::selectOne('SELECT * FROM users WHERE email = ?', [$email]);
+        Auth::loginUsingId($user->id);
+        if ($user && password_verify($password, $user->password)) {
+            return redirect("/albums");
+        }
+
     }
 }
