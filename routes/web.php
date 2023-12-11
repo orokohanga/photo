@@ -19,11 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/albums',[Controller::class, "albums"]);
-Route::get('/albums/create',[Controller::class, "albumscreate"]);
+Route::get('/albums/create',[Controller::class, "albumscreateform"]);
+Route::post('/albums/create',[Controller::class, "albumscreate"]);
 Route::get('/albums/{id}',[Controller::class, "albumsdetail"]);
 Route::get('/explorer',[Controller::class, "explorer"]);
 Route::get('/explorer/tags/{id}',[Controller::class, "explorertags"]);
-Route::get('/login', [Controller::class, 'loginform'])->name('login');
-Route::post('/login', [Controller::class, 'login']);
-Route::get('/register', [Controller::class, 'registerform'])->name('register');
-Route::post('/register', [Controller::class, 'register']);

@@ -1,3 +1,7 @@
+@extends("template")
+
+            
+@section("content")
 <form method="POST" action="{{ route('login') }}">
     @csrf
 
@@ -9,3 +13,4 @@
 
     <button type="submit">Connexion</button>
 </form>
+@endsection

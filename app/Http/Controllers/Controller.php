@@ -8,44 +8,46 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
     function albums(){
-        $albums = DB::select("SELECT * FROM albums");
+        $albums = \App\Models\Album::all();
         return view("albums", ["albums" => $albums]);
     }
 
+
     function albumsdetail($id) {
-    $photos = DB::select("SELECT photos.*
-        FROM photos
-        JOIN possede_tag ON photos.id = possede_tag.photo_id
-        JOIN tags ON possede_tag.tag_id = tags.id
-        WHERE photos.album_id = ?
-        GROUP BY photos.id
-        ", [$id]);
-    return view('albumsdetail', ['photos' => $photos]);
+        $album = \App\Models\Album::findOrFail($id);
+        return view('albumsdetail', ['album' => $album]);
     }
 
+
+    function albumscreateform() {
+        return view('albumscreate');
+    }
+
+    function albumscreate() {
+        $album = new \App\Models\Album;
+        $album->titre = request("titre");
+        $album->creation = date('Y-m-d');
+        $album->user_id = Auth::user()->id;
+        $album->save();
+        return redirect('/albums');
+    }
+
+
     function explorer(){
-        $photos = DB::select("SELECT photos.*, GROUP_CONCAT(tags.nom) AS tags
-        FROM photos
-        JOIN possede_tag ON photos.id = possede_tag.photo_id
-        JOIN tags ON possede_tag.tag_id = tags.id
-        GROUP BY photos.id
-        ");
+        $photos = \App\Models\Photo::all();
         return view("explorer", ["photos" => $photos]);
     }
 
     function explorertags($id){
-        $photos = DB::select("SELECT photos.*,  GROUP_CONCAT(tags.nom) AS tags
-        FROM photos
-        JOIN possede_tag ON photos.id = possede_tag.photo_id
-        JOIN tags ON possede_tag.tag_id = tags.id
-        WHERE tags.id = ?
-        GROUP BY photos.id
-    ", [$id]);
+        $tag = \App\Models\Tag::find($id);
+        $photos = $tag->photos;
+    
         return view("explorer", ["photos" => $photos]);
     }
 
@@ -78,8 +80,14 @@ class Controller extends BaseController
         $user = DB::selectOne('SELECT * FROM users WHERE email = ?', [$email]);
         Auth::loginUsingId($user->id);
         if ($user && password_verify($password, $user->password)) {
-            return redirect("/albums");
+            return redirect("/");
         }
-
     }
+
+    function logout() {
+        Auth::logout();
+
+        return redirect('/');
+    }
+
 }
