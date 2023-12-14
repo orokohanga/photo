@@ -1,19 +1,16 @@
 @extends("template")
 
-            
 @section("content")
-
-<main class="main1">
-    <div class="AlbumJJ">
-        <div class=albumJ>
-            <h3>Albums du jour</h3>
-            <div class="lscarte">
-                <div href="carte">
-                    
-                </div>
-            </div>
+<div class="contentwrap">
+    @foreach($photos->shuffle() as $photo)  
+        <div>
+        <img src="{{$photo->url}}">
+        <h2 class="phototitre">{{ $photo->titre }}</h2>
+        <p> Tags : </p>
+        @foreach($photo->tags as $tag)
+            <a href="/explorer/tags/{{$tag->id}}">{{$tag->nom}}</a>
+        @endforeach
         </div>
-    </div>
-</main>
-
+    @endforeach
+</div>
 @endsection

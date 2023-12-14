@@ -7,20 +7,31 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\Album;
+use App\Models\Tag;
+use App\Models\User;
+use App\Models\Photo;
 
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    function index(){
+        $photos = Photo::all();
+        return view("welcome", ["photos" => $photos]);
+    }
+
     function albums(){
-        $albums = \App\Models\Album::all();
+        $id = Auth::user()->id;
+        $albums = Album::all();
         return view("albums", ["albums" => $albums]);
     }
 
 
     function albumsdetail($id) {
-        $album = \App\Models\Album::findOrFail($id);
+        $album = Album::findOrFail($id);
         return view('albumsdetail', ['album' => $album]);
     }
 
@@ -30,64 +41,50 @@ class Controller extends BaseController
     }
 
     function albumscreate() {
-        $album = new \App\Models\Album;
+        $album = new Album;
         $album->titre = request("titre");
         $album->creation = date('Y-m-d');
         $album->user_id = Auth::user()->id;
         $album->save();
-        return redirect('/albums');
+        return redirect("/albums/$album->id");
     }
 
 
     function explorer(){
-        $photos = \App\Models\Photo::all();
+        $photos = Photo::all();
         return view("explorer", ["photos" => $photos]);
     }
 
     function explorertags($id){
-        $tag = \App\Models\Tag::find($id);
+        $tag = Tag::find($id);
         $photos = $tag->photos;
     
         return view("explorer", ["photos" => $photos]);
     }
 
-    function registerform()
-    {
-        return view('register');
+    function photosaddform() {
+        return view('photosadd');
     }
 
-    function register()
-    {
-        $newUser= new \App\Models\User;
-        $newUser -> name = request('name');
-        $newUser -> email = request('email');
-        $newUser -> password = request('password');
-        $newUser -> save();
-        return redirect("/");
+    function photosadd(Request $request) {
+
+        dd($request->all());
+        $request->validate([
+            "titre" => "required|max:255",
+            "url" => "required|file|mimes:jpg,png",
+        ]);
+        
+        if($request->file("url")->isValid()) {
+            $f = $request->file("url")->hashName();
+            $request->file("url")->storeAs("public/upload", $f);
+            dd($request->file("url"));   
+            $image = "/storage/upload/$f";
+        }               
+        $photo = new Photo;
+        $photo->titre = $request->input("titre");
+        $photo->url = $image;
+        $photo->album_id = 1;
+        $photo->save();
+        return redirect("/albums")->with("info", "photo enregistré");
     }
-
-    function loginform()
-    {
-        return view('login');
-    }
-
-    function login() {
-
-        $email = request('email');
-        $password = request('password');
-
-
-        $user = DB::selectOne('SELECT * FROM users WHERE email = ?', [$email]);
-        Auth::loginUsingId($user->id);
-        if ($user && password_verify($password, $user->password)) {
-            return redirect("/");
-        }
-    }
-
-    function logout() {
-        Auth::logout();
-
-        return redirect('/');
-    }
-
 }
