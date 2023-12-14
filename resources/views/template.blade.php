@@ -28,15 +28,15 @@
         <a href="/explorer">explorer</a>
 		@auth
         Bonjour {{Auth::user()->name}}
-        <a href="/albumscreate/">ajout film</a>
-        <a href="#"
-           onclick="document.getElementById('#').submit(); return false;">Logout</a>
-        <form id="logout" action="#" method="post">
+        <a href="/albums/create">Créer un album</a>
+        <a href="{{route('logout')}}"
+           onclick="document.getElementById('logout').submit(); return false;">Logout</a>
+        <form id="logout" action="{{route('logout')}}" method="post">
             @csrf
         </form>
     @else
-        <a href="#">Login</a>
-        <a href="#">Register</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
     @endauth
     </nav>
     
