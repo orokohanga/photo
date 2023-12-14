@@ -2,13 +2,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Titre de la page</title>
-	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	<title>Template</title>
+	<link rel="stylesheet" type="text/css" href="{{asset("css/style.css")}}"/>
+    <link>
 	</head>
 	<body>
         <header>
             <div class="header">
-            <h3>Accueil</h3>
+            <a href="/">Accueil</a>
             <div class="search">
                 <a href="#">
                 <i class='bx bx-search-alt-2'></i>
