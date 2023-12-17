@@ -75,7 +75,7 @@ header{
     outline: none;
 }
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 html{
@@ -131,4 +131,66 @@ margin: 0;
 
 .phototitre {
     text-align:center;
+}
+
+
+
+/* LOGIN */
+
+.login{
+    background-color: #070707;
+    display: flex;
+
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 88px);
+    color: white;
+    font-family: 'Poppins';
+        filter: contrast(100%) brightness(100%);
+        background: linear-gradient(221deg, rgba(0,0,255,1), rgba(0,0,26,1)),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='10' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+.login form{
+    padding: 5rem;
+    border-radius: 2rem;
+    background-color: #0030DA;
+    width: 40%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.login input{
+    margin-top: .7rem;
+    margin-bottom: 1rem;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #001047;
+    padding: 1rem;
+    border-radius: .4rem;
+    font-family: 'Poppins'
+
+}
+.login button[type=submit]{
+    background: rgb(3,16,251);
+    background: linear-gradient(90deg, rgba(3,16,251,1) 0%, rgba(17,0,85,1) 100%);     color: white;
+margin: auto;
+    border-radius: 5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;}
+.login button:hover{
+    cursor: pointer;
+}
+.buttonss{
+    background: rgb(0,2,40);
+    background: linear-gradient(270deg, rgba(0,2,40,1) 0%, rgba(17,0,85,1) 100%); 
+    width: 50%;
+    display: flex;
+    padding-left: .3rem;
+    padding-right: .3rem;
+    align-items: center;
+    border-radius: 5rem;
+    height: 56px;
 }

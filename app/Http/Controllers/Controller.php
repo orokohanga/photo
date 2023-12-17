@@ -24,7 +24,6 @@ class Controller extends BaseController
     }
 
     function albums(){
-        $id = Auth::user()->id;
         $albums = Album::all();
         return view("albums", ["albums" => $albums]);
     }

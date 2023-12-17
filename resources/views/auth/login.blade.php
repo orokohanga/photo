@@ -2,15 +2,19 @@
 
             
 @section("content")
+<body>
+<div class="login">
 <form method="POST" action="{{ route('login') }}">
     @csrf
+    <h1></h1>
+    <input type="email" placeholder="Email @" name="email" required>
 
-    <label for="email">Email</label>
-    <input type="email" name="email" required>
+    <input type="password" name="password" placeholder='Password' required>
 
-    <label for="password">Mot de passe:</label>
-    <input type="password" name="password" required>
-
+    <div class=buttonss>
     <button type="submit">Connexion</button>
+</div>
 </form>
+</div>
+</body>
 @endsection
