@@ -10,6 +10,10 @@
 	<nav>
 	    <a href="/albums">Liste des albums</a>
         <a href="/explorer">explorer</a>
+        <form action="/search">
+            <input type="text">
+            <button type="submit">Chercher</button>
+        </form>
 		@auth
         Bonjour {{Auth::user()->name}}
         <a href="/albums/create">Créer un album</a>
