@@ -92,7 +92,7 @@ class Controller extends BaseController
         return redirect("/albums")->with("info", "photo enregistré");
     }
 
-    function photodelete(Photo $photo)
+    public function photodelete(Photo $photo)
     {
         if (!$photo) {
             return redirect()->back()->with('error', 'La photo n\'existe pas.');
@@ -102,15 +102,5 @@ class Controller extends BaseController
 
         return redirect()->back()->with('success', 'La photo a été supprimée avec succès.');
     }
-
-    function search(Request $request){
-        $search = $request->input('search');
-        $photos = Photo::query()
-            ->where('titre', 'LIKE', "%{$search}%")
-            ->get();
-        dd($photos);
-        return view('explorer', ['photos' => $photos]);
-    }
-
-    }
+}
 
