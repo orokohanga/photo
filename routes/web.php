@@ -17,10 +17,11 @@ use \Illuminate\Http\Request;
 
 Route::get('/',[Controller::class, "index"]);
 Route::get('/albums',[Controller::class, "albums"]);
+Route::get('/albums/{id}',[Controller::class, "albumsdetail"]);
 Route::get('/albums/create',[Controller::class, "albumscreateform"])->middleware("auth");
 Route::post('/albums/create',[Controller::class, "albumscreate"]);
-Route::get('/albums/add',[Controller::class, "photosaddform"])->middleware("auth");
-Route::post('/albums/add',[Controller::class, "photosadd"]);
-Route::get('/albums/{id}',[Controller::class, "albumsdetail"]);
+Route::get('/photos/add/{album_id}', [Controller::class, "photosaddform"])->middleware("auth")->name('photos.addform');
+Route::post('/photos/add', [Controller::class, "photosadd"])->middleware("auth");
+Route::delete('/photos/{photo}', [Controller::class, 'photodelete'])->name('photos.delete');
 Route::get('/explorer',[Controller::class, "explorer"]);
 Route::get('/explorer/tags/{id}',[Controller::class, "explorertags"]);

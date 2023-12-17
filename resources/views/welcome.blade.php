@@ -2,7 +2,7 @@
 
 @section("content")
 <div class="contentwrap">
-    @foreach($photos->shuffle() as $photo)  
+    @foreach($photos as $photo)  
         <div>
         <img src="{{$photo->url}}">
         <h2 class="phototitre">{{ $photo->titre }}</h2>

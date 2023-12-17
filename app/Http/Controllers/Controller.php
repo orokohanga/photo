@@ -20,11 +20,11 @@ class Controller extends BaseController
 
     function index(){
         $photos = Photo::all();
+        $photos = Photo::orderBy('note', 'desc')->get();
         return view("welcome", ["photos" => $photos]);
     }
 
     function albums(){
-        $id = Auth::user()->id;
         $albums = Album::all();
         return view("albums", ["albums" => $albums]);
     }
@@ -62,29 +62,45 @@ class Controller extends BaseController
         return view("explorer", ["photos" => $photos]);
     }
 
-    function photosaddform() {
-        return view('photosadd');
+    function photosaddform($album_id) {
+        $album = Album::find($album_id);
+        
+        if ($album->user_id == Auth::id()) {
+            return view('photosadd', ['album' => $album]);
+        } else {
+            return view('albums');
+        }
     }
 
     function photosadd(Request $request) {
 
-        dd($request->all());
         $request->validate([
             "titre" => "required|max:255",
             "url" => "required|file|mimes:jpg,png",
         ]);
-        
+
         if($request->file("url")->isValid()) {
             $f = $request->file("url")->hashName();
             $request->file("url")->storeAs("public/upload", $f);
-            dd($request->file("url"));   
             $image = "/storage/upload/$f";
         }               
         $photo = new Photo;
         $photo->titre = $request->input("titre");
         $photo->url = $image;
-        $photo->album_id = 1;
+        $photo->album_id = $request->input("album_id");;
         $photo->save();
         return redirect("/albums")->with("info", "photo enregistré");
     }
+
+    public function photodelete(Photo $photo)
+    {
+        if (!$photo) {
+            return redirect()->back()->with('error', 'La photo n\'existe pas.');
+        }
+
+        $photo->delete();
+
+        return redirect()->back()->with('success', 'La photo a été supprimée avec succès.');
+    }
 }
+

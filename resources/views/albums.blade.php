@@ -2,13 +2,17 @@
             
 @section("content")
     <h1> Liste des albums</h1>
+    <div class="contentwrap">
     @foreach($albums as $album)
     <div class="album">
-        <a href="/albums/{{$album->id}}">{{$album->titre}}</a>
+        <a href="/albums/{{$album->id}}">{{$album->titre}}
         <p>Publié le : {{$album->creation}}</p>
         @if($album->photos->isNotEmpty())
-        <img src="{{$album->photos->first()->url}}"> <!-- Assurez-vous d'ajuster le nom de la colonne URL en fonction de votre modèle Photo -->
+        <img src="{{$album->photos->first()->url}}"> </a> <!-- Assurez-vous d'ajuster le nom de la colonne URL en fonction de votre modèle Photo -->
+        @else
+        <img src="/storage/upload/aucune-photo.jpg"> </a>
         @endif
-    <div>
+    </div>
     @endforeach
+</div>
 @endsection
