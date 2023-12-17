@@ -1,5 +1,5 @@
 @extends("template")
-
+<title>Cobalt</title>
 @section("content")
 <div class="contentwrap">
     @foreach($photos as $photo)  

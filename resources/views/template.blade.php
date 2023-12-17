@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Titre de la page</title>
+	<meta charset="UTF-8	<t	<title>Titre de la page</title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css" />
 	</head>
 	<body>
 	<header>Ma super application</header>
+er>
+der>
 	<nav>
 	    <a href="/albums">Liste des albums</a>
         <a href="/explorer">explorer</a>
