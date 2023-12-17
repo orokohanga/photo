@@ -1,5 +1,5 @@
 @extends("template")
-
+<title>Login</title>
             
 @section("content")
 <body>

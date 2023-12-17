@@ -9,6 +9,7 @@
 	<body>
         <header>
             <div class="header">
+            <img src="img/logo.png">
             <a href="/">Accueil</a>
             <div class="search">
                 <a href="#">
