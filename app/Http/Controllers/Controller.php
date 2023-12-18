@@ -50,8 +50,17 @@ class Controller extends BaseController
     }
 
 
-    function explorer(){
-        $photos = Photo::all();
+    function myprofile() {
+        $id = Auth::user()->id;
+        $albums = Album::where('user_id', $id)->get();
+        return view('profile', ['albums' => $albums]);
+    }
+
+    function explorer(Request $request){
+        $search = $request->input('search');
+        $photos = Photo::query()
+            ->where('titre', 'LIKE', "%{$search}%")
+            ->get();
         return view("explorer", ["photos" => $photos]);
     }
 
@@ -92,7 +101,7 @@ class Controller extends BaseController
         return redirect("/albums")->with("info", "photo enregistré");
     }
 
-    public function photodelete(Photo $photo)
+    function photodelete(Photo $photo)
     {
         if (!$photo) {
             return redirect()->back()->with('error', 'La photo n\'existe pas.');

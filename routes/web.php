@@ -25,3 +25,5 @@ Route::post('/photos/add', [Controller::class, "photosadd"])->middleware("auth")
 Route::delete('/photos/{photo}', [Controller::class, 'photodelete'])->name('photos.delete');
 Route::get('/explorer',[Controller::class, "explorer"]);
 Route::get('/explorer/tags/{id}',[Controller::class, "explorertags"]);
+Route::get('/search',[Controller::class, "search"]);
+Route::get('/profil',[Controller::class, "myprofile"]);
